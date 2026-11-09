@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🎸 Acordes Vilão + 2-5-1 + Importador</title>
+<title>🎸 Acordes Vilão + Escalas + Importador</title>
 <style>
   :root {
     --bg: #0d0d12; --panel: #16161f; --panel2: #1e1e2a;
@@ -24,10 +24,8 @@
     letter-spacing: 2px; color: var(--red2);
     text-shadow: 0 0 20px rgba(230,57,70,0.6); flex-shrink: 0;
   }
-  header small {
-    display: block; font-size: 0.7rem; color: var(--muted);
-    letter-spacing: 1px; font-weight: normal; margin-top: 2px;
-  }
+  header small { display: block; font-size: 0.7rem; color: var(--muted); letter-spacing: 1px; font-weight: normal; margin-top: 2px; }
+  
   #tabs { display: flex; background: var(--panel); border-bottom: 2px solid var(--border); flex-shrink: 0; }
   .tab {
     flex: 1; padding: 12px; background: transparent; border: none;
@@ -59,10 +57,7 @@
   .ton-btn.active-251 { background: #1b3a1f; border-left-color: var(--green); color: white; font-weight: bold; }
   
   .saved-btn { display: flex; justify-content: space-between; align-items: center; padding-right: 8px; }
-  .saved-btn .del-btn { 
-    background: transparent; border: none; color: var(--red2); cursor: pointer; 
-    font-size: 1.2rem; padding: 0 5px; transition: transform 0.2s; font-weight: bold;
-  }
+  .saved-btn .del-btn { background: transparent; border: none; color: var(--red2); cursor: pointer; font-size: 1.2rem; padding: 0 5px; transition: transform 0.2s; font-weight: bold; }
   .saved-btn .del-btn:hover { transform: scale(1.3); color: var(--red); }
   
   #main { flex: 1; overflow-y: auto; padding: 20px 28px; }
@@ -75,6 +70,7 @@
   .prog-card h4 { color: var(--cyan); font-size: 0.95rem; margin-bottom: 8px; }
   .prog-card.g251 h4 { color: var(--green); }
   .prog-acordes { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+  
   .ac-btn {
     background: var(--panel2); border: 1px solid var(--border); color: var(--text);
     padding: 6px 12px; border-radius: 6px; font-size: 0.95rem; font-weight: bold;
@@ -86,7 +82,6 @@
   .ac-btn.grau-ii { border-color: var(--cyan); color: var(--cyan); }
   .ac-btn.grau-v { border-color: var(--red2); color: var(--red2); }
   .ac-btn.grau-i { border-color: var(--yellow); color: var(--yellow); }
-  .ac-btn.playing { background: var(--green) !important; border-color: var(--green) !important; color: white !important; transform: scale(1.1); box-shadow: 0 0 20px rgba(76,175,80,0.6); }
   .seta { color: var(--muted); font-size: 1.1rem; }
   
   .diag-grid { display: flex; flex-wrap: wrap; gap: 20px; margin-top: 12px; }
@@ -95,20 +90,12 @@
     padding: 12px; text-align: center; cursor: pointer; transition: all 0.15s;
   }
   .diag-card:hover { border-color: var(--red); box-shadow: 0 0 20px rgba(230,57,70,0.3); }
-  .diag-card.playing { border-color: var(--green); box-shadow: 0 0 25px rgba(76,175,80,0.5); }
   .diag-card .nome { font-size: 1.1rem; font-weight: bold; color: var(--yellow); margin-bottom: 8px; }
-  .diag-card svg { display: block; }
+  .diag-card svg { display: block; margin: 0 auto; }
   .diag-card .funcao { font-size: 0.7rem; color: var(--muted); margin-top: 6px; text-transform: uppercase; letter-spacing: 1px; }
   
   .secao-titulo { color: var(--yellow); font-size: 1rem; text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px solid var(--border); padding-bottom: 8px; margin: 24px 0 14px; }
   .secao-titulo.g251 { color: var(--green); border-bottom-color: var(--green); }
-  
-  #status {
-    position: fixed; bottom: 14px; right: 14px; background: var(--panel2);
-    border: 1px solid var(--border); border-radius: 8px; padding: 8px 14px;
-    font-size: 0.85rem; color: var(--cyan); opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 100;
-  }
-  #status.show { opacity: 1; }
   
   .action-bar { display: flex; gap: 10px; margin: 12px 0; flex-wrap: wrap; align-items: center; }
   .action-btn {
@@ -117,7 +104,6 @@
     font-family: inherit; font-weight: bold; transition: all 0.15s;
   }
   .action-btn:hover { background: var(--green); border-color: var(--green); color: white; }
-  .action-btn.stop:hover { background: var(--red); border-color: var(--red); }
   .action-btn.purple { background: var(--purple); color: white; border: none; box-shadow: 0 4px 12px rgba(179,136,255,0.4); }
   .action-btn.purple:hover { background: #9c6ee6; }
   
@@ -133,7 +119,6 @@
   .badge.import { border-color: var(--purple); color: var(--purple); }
   .hidden { display: none !important; }
   
-  /* ESTILO DA CIFRA LIMPA */
   .cifra-container {
     background: var(--panel); border: 1px solid var(--border);
     border-radius: 8px; padding: 20px; font-family: 'Courier New', Courier, monospace;
@@ -143,14 +128,51 @@
   .cifra-container .acorde-txt:hover { color: var(--red2); text-decoration: underline; }
   .cifra-container .secao { color: var(--purple); font-weight: bold; font-style: italic; margin-top: 10px; display: block; }
 
+  /* MODAL DE DIAGRAMA */
+  #modal-diagrama {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(4px);
+    display: flex; justify-content: center; align-items: center;
+    z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.2s;
+  }
+  #modal-diagrama.show { opacity: 1; pointer-events: auto; }
+  
+  .modal-content {
+    background: var(--panel); border: 2px solid var(--red);
+    border-radius: 16px; padding: 20px; text-align: center;
+    box-shadow: 0 0 40px rgba(230,57,70,0.3);
+    transform: scale(0.9); transition: transform 0.2s;
+    position: relative; max-width: 90vw; max-height: 90vh; overflow-y: auto;
+  }
+  #modal-diagrama.show .modal-content { transform: scale(1); }
+  
+  .modal-content h3 { color: var(--yellow); font-size: 2rem; margin-bottom: 4px; }
+  .modal-content .funcao-modal { color: var(--muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; }
+  
+  /* ABAS DE ESCALA */
+  .escala-tabs { display: flex; gap: 10px; margin-bottom: 16px; justify-content: center; }
+  .escala-tab {
+    background: var(--panel2); border: 1px solid var(--border); color: var(--muted);
+    padding: 8px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; transition: all 0.15s;
+  }
+  .escala-tab:hover { color: white; border-color: var(--cyan); }
+  .escala-tab.active { background: var(--cyan); color: #000; border-color: var(--cyan); }
+
+  .close-btn {
+    position: absolute; top: 10px; right: 14px;
+    background: none; border: none; color: var(--muted);
+    font-size: 1.5rem; cursor: pointer; transition: color 0.15s;
+  }
+  .close-btn:hover { color: var(--red2); }
+
   svg text { font-family: 'Segoe UI', sans-serif; }
 </style>
 </head>
 <body>
 
 <header>
-  🎸 ACORDES VILÃO + 2-5-1 + IMPORTADOR 🎸
-  <small>Frígio · Menor Harmônica · Napolitana · ii–V–I · Gospel · Cifras</small>
+  🎸 ACORDES VILÃO + ESCALAS + IMPORTADOR 🎸
+  <small>Frígio · Menor Harmônica · ii–V–I · Gospel · Escalas</small>
 </header>
 
 <div id="tabs">
@@ -160,7 +182,6 @@
 </div>
 
 <div id="app">
-  <!-- SIDEBAR DINÂMICA -->
   <aside id="sidebar">
     <div id="sidebar-tonalidades">
       <h3 id="sidebar-title">Tonalidades</h3>
@@ -174,28 +195,16 @@
   </aside>
 
   <main id="main">
-    <!-- ABA VILÃO -->
     <div id="view-vilao">
       <h2 id="titulo-ton">Am <small>— Lá menor</small></h2>
-      <div class="action-bar">
-        <button class="action-btn" id="play-all-vilao">▶ Tocar todas</button>
-        <button class="action-btn stop" id="stop-all">■ Parar</button>
-      </div>
       <div class="secao-titulo">🎬 Progressões Vilão</div>
       <div class="prog-grid" id="progressoes"></div>
       <div class="secao-titulo">📊 Diagramas</div>
       <div class="diag-grid" id="diagramas"></div>
     </div>
 
-    <!-- ABA 2-5-1 -->
     <div id="view-251" class="hidden">
       <h2 id="titulo-ton-251">C <small>— Dó Maior</small> <span class="badge g251">2-5-1</span></h2>
-      <div class="action-bar">
-        <button class="action-btn" id="play-251">▶ Tocar ii–V–I</button>
-        <button class="action-btn" id="play-turnaround">▶ Turnaround</button>
-        <button class="action-btn" id="play-vamp">▶ Vamp Gospel</button>
-        <button class="action-btn stop" id="stop-251">■ Parar</button>
-      </div>
       <div class="secao-titulo g251">🎯 Cadência ii–V–I</div>
       <div class="prog-grid" id="progressoes-251"></div>
       <div class="secao-titulo g251">🔥 Variações Avançadas</div>
@@ -206,7 +215,6 @@
       <div class="diag-grid" id="diagramas-251"></div>
     </div>
 
-    <!-- ABA MEUS LOUVORES / IMPORTAR -->
     <div id="view-import" class="hidden">
       <h2>📋 Gerenciador de Louvores <span class="badge import">IA de Acordes</span></h2>
       <p style="color: var(--muted); margin-bottom: 10px;">Cole a cifra ou importe um arquivo <b>.txt</b>. Salve para acessar depois na barra lateral.</p>
@@ -226,8 +234,7 @@
       </div>
 
       <div id="resultado-analise" class="hidden">
-        
-        <div class="secao-titulo" style="color: var(--green); border-bottom-color: var(--green);">📜 Cifra Formatada (Clique nos acordes para ouvir)</div>
+        <div class="secao-titulo" style="color: var(--green); border-bottom-color: var(--green);">📜 Cifra Formatada</div>
         <div id="cifra-formatada" class="cifra-container"></div>
 
         <div class="secao-titulo" style="color: var(--cyan); border-bottom-color: var(--cyan);">🎸 Acordes Encontrados</div>
@@ -243,11 +250,31 @@
   </main>
 </div>
 
+<!-- MODAL (POP-UP) DO DIAGRAMA E ESCALA -->
+<div id="modal-diagrama" onclick="fecharModal(event)">
+  <div class="modal-content" onclick="event.stopPropagation()">
+    <button class="close-btn" onclick="document.getElementById('modal-diagrama').classList.remove('show')">✕</button>
+    <h3 id="modal-nome">Am</h3>
+    <div class="funcao-modal" id="modal-funcao">Tônica</div>
+    
+    <div id="modal-acorde-container"></div>
+
+    <div style="margin-top: 30px; border-top: 1px solid var(--border); padding-top: 20px;">
+      <h4 style="color: var(--cyan); margin-bottom: 12px; font-size: 1.1rem;">🎼 Escalas da Tônica</h4>
+      <div class="escala-tabs">
+        <button class="escala-tab active" onclick="mudarEscala('maior')">Maior</button>
+        <button class="escala-tab" onclick="mudarEscala('menor')">Menor</button>
+      </div>
+      <div id="modal-escala-container"></div>
+    </div>
+  </div>
+</div>
+
 <div id="status"></div>
 
 <script>
 // ==========================================
-// BANCO DE ACORDES E DADOS
+// BANCO DE ACORDES
 // ==========================================
 const ACORDES = {
   "Am":  ["x",0,2,2,1,0], "A#m": ["x",1,3,3,2,1], "Bm":  ["x",2,4,4,3,2],
@@ -328,76 +355,132 @@ const PROGRESSOES = {
 
 const FUNCOES_LABEL = { i:"Tônica (i)", bII:"Napolitano (bII)", bVI:"Sexta (bVI)", V7:"Dominante (V7)", vii:"Diminuto (vii°)" };
 
-let audioCtx = null;
-let pararFlag = false;
-let louvorAtualId = null; // Rastreia se estamos editando um louvor salvo
+let louvorAtualId = null; 
+let acordeModalAtual = "C";
+let escalaModalAtual = "maior";
 
 // ==========================================
-// ÁUDIO E DIAGRAMAS
+// LÓGICA DE ESCALAS
 // ==========================================
-function getAudioCtx() {
-  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-  return audioCtx;
-}
+const NOTAS_BASE = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+const CORDAS_SOLTAS_NOTAS = ["E", "A", "D", "G", "B", "E"]; // 6ª à 1ª
 
-const cordasSoltas = [82.41, 110.00, 146.83, 196.00, 246.94, 329.63];
+// Intervalos em semitons
+const ESCALA_MAIOR = [0, 2, 4, 5, 7, 9, 11];
+const ESCALA_MENOR = [0, 2, 3, 5, 7, 8, 10];
 
-function tocarAcorde(acorde, duracao = 1.4) {
-  let acParaTocar = acorde;
-  if (!ACORDES[acParaTocar]) {
-    const simplificado = simplificarAcorde(acParaTocar);
-    if (ACORDES[simplificado]) acParaTocar = simplificado;
-    else { mostrarStatus("⚠ " + acorde + " (sem diagrama/som)"); return; }
+function obterNotasEscala(tonica, tipo) {
+  let indexTonica = NOTAS_BASE.indexOf(tonica);
+  if (indexTonica === -1) {
+    // Lida com bemóis
+    const equivalentes = { "Db":"C#", "Eb":"D#", "Gb":"F#", "Ab":"G#", "Bb":"A#" };
+    indexTonica = NOTAS_BASE.indexOf(equivalentes[tonica] || "C");
   }
-
-  const ctx = getAudioCtx();
-  const pos = ACORDES[acParaTocar];
-
-  pos.forEach((p, idx) => {
-    if (p === "x") return;
-    const freq = cordasSoltas[idx] * Math.pow(2, p / 12);
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.type = "triangle";
-    osc.frequency.value = freq;
-    gain.gain.setValueAtTime(0.0001, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.13, ctx.currentTime + 0.02);
-    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duracao);
-    osc.connect(gain).connect(ctx.destination);
-    osc.start();
-    osc.stop(ctx.currentTime + duracao + 0.1);
-  });
-  mostrarStatus("🔊 " + (acParaTocar !== acorde ? acParaTocar + " (simplificado)" : acorde));
+  
+  const intervalos = tipo === "maior" ? ESCALA_MAIOR : ESCALA_MENOR;
+  return intervalos.map(i => NOTAS_BASE[(indexTonica + i) % 12]);
 }
 
-function mostrarStatus(msg) {
-  const st = document.getElementById("status");
-  st.textContent = msg;
-  st.classList.add("show");
-  clearTimeout(window._stTimer);
-  window._stTimer = setTimeout(() => st.classList.remove("show"), 900);
+function mudarEscala(tipo) {
+  escalaModalAtual = tipo;
+  document.querySelectorAll(".escala-tab").forEach(t => t.classList.toggle("active", t.textContent.toLowerCase() === tipo));
+  desenharEscalaNoModal();
 }
 
-async function tocarSequencia(acordes, bpm = 100) {
-  pararFlag = false;
-  const intervalo = 60000 / bpm / 2;
-  for (const ac of acordes) {
-    if (pararFlag) break;
-    tocarAcorde(ac, intervalo / 1000 + 0.2);
-    destacarAcorde(ac);
-    await sleep(intervalo);
+function desenharEscalaNoModal() {
+  let tonicaBase = acordeModalAtual.split('/')[0].replace(/m|maj|7|9|11|13|dim|aug|sus|add/g, '');
+  const notasEscala = obterNotasEscala(tonicaBase, escalaModalAtual);
+  
+  const casas = 12;
+  const W = 800; const H = 180;
+  const margX = 40; const margY = 30;
+  const passoX = (W - 2*margX) / casas;
+  const passoY = (H - margY - 30) / 5; // 6 cordas = 5 espaços
+  
+  let svg = `<svg width="100%" height="${H}" viewBox="0 0 ${W} ${H}" style="max-width: 100%;">`;
+  
+  // Cordas (horizontais)
+  for (let i = 0; i < 6; i++) {
+    const y = margY + i * passoY;
+    svg += `<line x1="${margX}" y1="${y}" x2="${W-margX}" y2="${y}" stroke="#444" stroke-width="1.5"/>`;
+    svg += `<text x="${margX-15}" y="${y+4}" text-anchor="end" font-size="12" fill="#888" font-weight="bold">${CORDAS_SOLTAS_NOTAS[i]}</text>`;
   }
-  destacarAcorde(null);
-}
-
-function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
-
-function destacarAcorde(ac) {
-  document.querySelectorAll(".ac-btn, .diag-card").forEach(el => {
-    el.classList.toggle("playing", ac && (el.dataset.ac === ac || el.textContent.trim().startsWith(ac)));
+  
+  // Trastes (verticais)
+  for (let c = 0; c <= casas; c++) {
+    const x = margX + c * passoX;
+    svg += `<line x1="${x}" y1="${margY}" x2="${x}" y2="${H-30}" stroke="#444" stroke-width="1.5"/>`;
+    if (c > 0) {
+      svg += `<text x="${x}" y="${H-10}" text-anchor="middle" font-size="11" fill="#666">${c}</text>`;
+    }
+  }
+  
+  // Marcadores de pestana (casas 3, 5, 7, 9, 12)
+  [3, 5, 7, 9].forEach(c => {
+    const x = margX + c * passoX - passoX/2;
+    const y = margY + 2.5 * passoY;
+    svg += `<circle cx="${x}" cy="${y}" r="4" fill="#222"/>`;
   });
+  const x12 = margX + 12 * passoX - passoX/2;
+  svg += `<circle cx="${x12}" cy="${margY + 1.5*passoY}" r="4" fill="#222"/>`;
+  svg += `<circle cx="${x12}" cy="${margY + 3.5*passoY}" r="4" fill="#222"/>`;
+
+  // Desenhar Notas
+  for (let c = 0; c < 6; c++) {
+    const notaCorda = CORDAS_SOLTAS_NOTAS[c];
+    let idxCorda = NOTAS_BASE.indexOf(notaCorda);
+    
+    for (let casa = 0; casa <= casas; casa++) {
+      const notaAtual = NOTAS_BASE[(idxCorda + casa) % 12];
+      
+      if (notasEscala.includes(notaAtual)) {
+        const x = margX + casa * passoX;
+        const y = margY + c * passoY;
+        
+        const isTonica = (notaAtual === tonicaBase) || (notaAtual === "C#" && tonicaBase === "Db") || (notaAtual === "D#" && tonicaBase === "Eb") || (notaAtual === "F#" && tonicaBase === "Gb") || (notaAtual === "G#" && tonicaBase === "Ab") || (notaAtual === "A#" && tonicaBase === "Bb");
+        
+        const corFundo = isTonica ? "var(--yellow)" : "var(--green)";
+        const corTexto = isTonica ? "#000" : "#fff";
+        const raio = isTonica ? 11 : 9;
+        
+        svg += `<circle cx="${x}" cy="${y}" r="${raio}" fill="${corFundo}" />`;
+        svg += `<text x="${x}" y="${y+4}" text-anchor="middle" font-size="9" font-weight="bold" fill="${corTexto}">${notaAtual}</text>`;
+      }
+    }
+  }
+  
+  svg += "</svg>";
+  document.getElementById("modal-escala-container").innerHTML = svg;
 }
 
+// ==========================================
+// MODAL DE DIAGRAMA
+// ==========================================
+function abrirModal(acorde, funcao = "Acorde") {
+  const modal = document.getElementById("modal-diagrama");
+  document.getElementById("modal-nome").textContent = acorde;
+  document.getElementById("modal-funcao").textContent = funcao;
+  
+  acordeModalAtual = acorde;
+  document.getElementById("modal-acorde-container").innerHTML = desenharSVG(acorde, true);
+  
+  // Reseta a aba de escala para Maior por padrão
+  escalaModalAtual = "maior";
+  document.querySelectorAll(".escala-tab").forEach(t => t.classList.toggle("active", t.textContent.toLowerCase() === "maior"));
+  desenharEscalaNoModal();
+  
+  modal.classList.add("show");
+}
+
+function fecharModal(e) {
+  if (e.target.id === "modal-diagrama") {
+    document.getElementById("modal-diagrama").classList.remove("show");
+  }
+}
+
+// ==========================================
+// DESENHAR DIAGRAMA DO ACORDE (SVG)
+// ==========================================
 function simplificarAcorde(acorde) {
   let base = acorde.split('/')[0];
   let simplificado = base.replace(/\([^)]*\)/g, '').replace('add9','').replace('9','').replace('11','').replace('13','');
@@ -422,49 +505,60 @@ function simplificarAcorde(acorde) {
   return base; 
 }
 
-function desenharSVG(acorde) {
-  let acParaDesenhar = acorde;
+function desenharSVG(acordeOriginal, grande = false) {
+  let acParaDesenhar = acordeOriginal.split('/')[0];
   if (!ACORDES[acParaDesenhar]) acParaDesenhar = simplificarAcorde(acParaDesenhar);
-  if (!ACORDES[acParaDesenhar]) return "<div>(sem diagrama)</div>";
+  if (!ACORDES[acParaDesenhar]) return "<div style='color:var(--muted)'>(sem diagrama)</div>";
 
   const pos = ACORDES[acParaDesenhar];
   const nums = pos.filter(p => typeof p === "number" && p > 0);
   const base = nums.length ? Math.max(1, Math.min(...nums) - 1) : 1;
+  
   const casas = 5;
-  const W = 130, H = 150;
-  const margX = 18, margY = 22;
+  const W = grande ? 240 : 130; 
+  const H = grande ? 280 : 150;
+  const margX = grande ? 35 : 18; 
+  const margY = grande ? 45 : 22;
   const passoX = (W - 2*margX) / 5;
-  const passoY = (H - margY - 18) / casas;
+  const passoY = (H - margY - (grande ? 35 : 18)) / casas;
+  
+  const raio = grande ? 12 : 7;
+  const fonteNum = grande ? 14 : 9;
+  const fonteCorda = grande ? 12 : 8;
 
   let svg = `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`;
   for (let i = 0; i < 6; i++) {
     const x = margX + i * passoX;
-    svg += `<line x1="${x}" y1="${margY}" x2="${x}" y2="${H-18}" stroke="#444" stroke-width="1"/>`;
+    svg += `<line x1="${x}" y1="${margY}" x2="${x}" y2="${H-(grande?35:18)}" stroke="#555" stroke-width="${grande?2:1}"/>`;
   }
   for (let j = 0; j <= casas; j++) {
     const y = margY + j * passoY;
-    svg += `<line x1="${margX}" y1="${y}" x2="${W-margX}" y2="${y}" stroke="#444" stroke-width="1"/>`;
+    svg += `<line x1="${margX}" y1="${y}" x2="${W-margX}" y2="${y}" stroke="#555" stroke-width="${grande?2:1}"/>`;
   }
-  svg += `<line x1="${margX}" y1="${margY}" x2="${W-margX}" y2="${margY}" stroke="#aaa" stroke-width="3"/>`;
+  svg += `<line x1="${margX}" y1="${margY}" x2="${W-margX}" y2="${margY}" stroke="#aaa" stroke-width="${grande?5:3}"/>`;
+  
   for (let j = 1; j <= casas; j++) {
-    const y = margY + j * passoY - passoY/2 + 4;
-    svg += `<text x="8" y="${y}" font-size="9" fill="#666">${base + j - 1}</text>`;
+    const y = margY + j * passoY - passoY/2 + (grande?5:4);
+    svg += `<text x="${grande?15:8}" y="${y}" font-size="${fonteNum}" fill="#888" font-weight="bold">${base + j - 1}</text>`;
   }
+  
   pos.forEach((p, i) => {
     const x = margX + i * passoX;
     if (p === "x") {
-      svg += `<text x="${x}" y="14" text-anchor="middle" font-size="11" fill="#e63946" font-weight="bold">✕</text>`;
+      svg += `<text x="${x}" y="${grande?28:14}" text-anchor="middle" font-size="${grande?18:11}" fill="#e63946" font-weight="bold">✕</text>`;
     } else if (p === 0) {
-      svg += `<circle cx="${x}" cy="10" r="5" fill="none" stroke="#4dd0e1" stroke-width="1.5"/>`;
+      svg += `<circle cx="${x}" cy="${grande?22:10}" r="${grande?8:5}" fill="none" stroke="#4dd0e1" stroke-width="${grande?3:1.5}"/>`;
     } else if (typeof p === "number") {
       const y = margY + (p - base + 0.5) * passoY;
-      svg += `<circle cx="${x}" cy="${y}" r="7" fill="#e63946"/>`;
+      svg += `<circle cx="${x}" cy="${y}" r="${raio}" fill="#e63946"/>`;
     }
   });
+  
   ["E","A","D","G","B","e"].forEach((n, i) => {
     const x = margX + i * passoX;
-    svg += `<text x="${x}" y="${H-4}" text-anchor="middle" font-size="8" fill="#555">${n}</text>`;
+    svg += `<text x="${x}" y="${H-(grande?10:4)}" text-anchor="middle" font-size="${fonteCorda}" fill="#777" font-weight="bold">${n}</text>`;
   });
+  
   svg += "</svg>";
   return svg;
 }
@@ -492,8 +586,7 @@ function renderProgressoes(ton) {
       const btn = document.createElement("button");
       btn.className = classeAcordeVilao(f);
       btn.textContent = mapa[f];
-      btn.dataset.ac = mapa[f];
-      btn.onclick = () => tocarAcorde(mapa[f]);
+      btn.onclick = () => abrirModal(mapa[f], FUNCOES_LABEL[f]);
       linha.appendChild(btn);
       if (idx < funcoes.length - 1) {
         const s = document.createElement("span"); s.className = "seta"; s.textContent = "→";
@@ -513,9 +606,8 @@ function renderDiagramas(ton) {
     const ac = mapa[f];
     const card = document.createElement("div");
     card.className = "diag-card";
-    card.dataset.ac = ac;
     card.innerHTML = `<div class="nome">${ac}</div>${desenharSVG(ac)}<div class="funcao">${FUNCOES_LABEL[f]}</div>`;
-    card.onclick = () => tocarAcorde(ac);
+    card.onclick = () => abrirModal(ac, FUNCOES_LABEL[f]);
     div.appendChild(card);
   });
 }
@@ -534,12 +626,11 @@ function criarCardProg(titulo, acordes, mapaFuncoes = null) {
   const linha = document.createElement("div");
   linha.className = "prog-acordes";
   acordes.forEach((ac, idx) => {
-    const btn = document.createElement("button");
     const func = mapaFuncoes ? mapaFuncoes[idx] : null;
+    const btn = document.createElement("button");
     btn.className = func ? classe251(func) : "ac-btn";
     btn.textContent = ac;
-    btn.dataset.ac = ac;
-    btn.onclick = () => tocarAcorde(ac);
+    btn.onclick = () => abrirModal(ac, func ? func.toUpperCase() : "Acorde");
     linha.appendChild(btn);
     if (idx < acordes.length - 1) {
       const s = document.createElement("span"); s.className = "seta"; s.textContent = "→";
@@ -587,9 +678,8 @@ function render251(ton) {
   ].forEach(({ac, label}) => {
     const card = document.createElement("div");
     card.className = "diag-card";
-    card.dataset.ac = ac;
     card.innerHTML = `<div class="nome">${ac}</div>${desenharSVG(ac)}<div class="funcao">${label}</div>`;
-    card.onclick = () => tocarAcorde(ac);
+    card.onclick = () => abrirModal(ac, label);
     pDiag.appendChild(card);
   });
 }
@@ -608,13 +698,11 @@ function selecionarTon(ton) {
     document.getElementById("titulo-ton").innerHTML = `${ton} <small>— ${TONALIDADES[ton].nome}</small>`;
     renderProgressoes(ton);
     renderDiagramas(ton);
-    tocarAcorde(TONALIDADES[ton].i);
   } else if (abaAtual === "251") {
     tonalidadeMaiorAtual = ton;
     document.querySelectorAll(".ton-btn").forEach(b => b.classList.toggle("active-251", b.dataset.ton === ton));
     document.getElementById("titulo-ton-251").innerHTML = `${ton} <small>— ${TONALIDADES_MAIORES[ton].nome}</small> <span class="badge g251">2-5-1</span>`;
     render251(ton);
-    tocarAcorde(TONALIDADES_MAIORES[ton].I);
   }
 }
 
@@ -626,7 +714,6 @@ function trocarAba(aba) {
   document.getElementById("view-251").classList.toggle("hidden", aba !== "251");
   document.getElementById("view-import").classList.toggle("hidden", aba !== "import");
 
-  // Lógica da Sidebar
   if (aba === "import") {
     document.getElementById("sidebar-tonalidades").classList.add("hidden");
     document.getElementById("sidebar-salvos").classList.remove("hidden");
@@ -655,16 +742,10 @@ function trocarAba(aba) {
 }
 
 // ==========================================
-// LÓGICA DE LOUVORES SALVOS (LocalStorage)
+// LÓGICA DE LOUVORES SALVOS
 // ==========================================
-function getLouvoresSalvos() {
-  const data = localStorage.getItem("meus_louvores");
-  return data ? JSON.parse(data) : {};
-}
-
-function salvarNoStorage(louvores) {
-  localStorage.setItem("meus_louvores", JSON.stringify(louvores));
-}
+function getLouvoresSalvos() { return JSON.parse(localStorage.getItem("meus_louvores") || "{}"); }
+function salvarNoStorage(louvores) { localStorage.setItem("meus_louvores", JSON.stringify(louvores)); }
 
 function carregarListaSalvos() {
   const div = document.getElementById("lista-salvos");
@@ -680,23 +761,15 @@ function carregarListaSalvos() {
   keys.forEach(id => {
     const btn = document.createElement("div");
     btn.className = "saved-btn";
-    btn.innerHTML = `<span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${louvores[id].titulo}</span>
-                     <button class="del-btn" title="Excluir">✕</button>`;
-    
-    // Clicar no nome carrega
+    btn.innerHTML = `<span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${louvores[id].titulo}</span><button class="del-btn" title="Excluir">✕</button>`;
     btn.querySelector("span").onclick = () => carregarLouvorSalvo(id);
-    
-    // Clicar no X apaga
     btn.querySelector(".del-btn").onclick = (e) => {
       e.stopPropagation();
       if (confirm(`Apagar "${louvores[id].titulo}"?`)) {
         delete louvores[id];
         salvarNoStorage(louvores);
         carregarListaSalvos();
-        if (louvorAtualId === id) {
-          document.getElementById("btn-limpar").click();
-        }
-        mostrarStatus("🗑️ Louvor apagado");
+        if (louvorAtualId === id) document.getElementById("btn-limpar").click();
       }
     };
     div.appendChild(btn);
@@ -711,59 +784,38 @@ function carregarLouvorSalvo(id) {
   louvorAtualId = id;
   document.getElementById("input-titulo").value = louvor.titulo;
   document.getElementById("input-cifra").value = louvor.cifra;
-  
-  // Rola pro topo da área de importação
   document.getElementById("main").scrollTop = 0;
-  
-  // Já analisa automaticamente
   document.getElementById("btn-analisar").click();
-  mostrarStatus("📂 " + louvor.titulo + " carregado");
 }
 
 document.getElementById("btn-salvar").onclick = () => {
   const titulo = document.getElementById("input-titulo").value.trim();
   const cifra = document.getElementById("input-cifra").value.trim();
-  
   if (!titulo) return alert("Digite um nome para o louvor!");
   if (!cifra) return alert("A cifra está vazia!");
-
+  
   const louvores = getLouvoresSalvos();
-  
-  // Se já estiver editando um, mantém o ID. Se não, cria um novo.
   const id = louvorAtualId || "louvor_" + Date.now();
-  
   louvores[id] = { titulo, cifra };
   salvarNoStorage(louvores);
   
   louvorAtualId = id;
   carregarListaSalvos();
-  mostrarStatus("💾 Louvor salvo com sucesso!");
 };
 
-document.getElementById("btn-importar-txt").onclick = () => {
-  document.getElementById("file-input").click();
-};
-
+document.getElementById("btn-importar-txt").onclick = () => { document.getElementById("file-input").click(); };
 document.getElementById("file-input").onchange = (e) => {
   const file = e.target.files[0];
   if (!file) return;
-
   const reader = new FileReader();
   reader.onload = (event) => {
     document.getElementById("input-cifra").value = event.target.result;
-    // Se o título estiver vazio, preenche com o nome do arquivo
-    if (!document.getElementById("input-titulo").value) {
-      document.getElementById("input-titulo").value = file.name.replace(".txt", "");
-    }
-    mostrarStatus("📁 Arquivo importado");
+    if (!document.getElementById("input-titulo").value) document.getElementById("input-titulo").value = file.name.replace(".txt", "");
   };
   reader.readAsText(file);
-  e.target.value = ""; // Limpa o input para permitir importar o mesmo arquivo de novo
+  e.target.value = "";
 };
 
-// ==========================================
-// MOTOR DE ANÁLISE DE CIFRAS
-// ==========================================
 document.getElementById("btn-limpar").onclick = () => {
   document.getElementById("input-cifra").value = "";
   document.getElementById("input-titulo").value = "";
@@ -771,6 +823,9 @@ document.getElementById("btn-limpar").onclick = () => {
   louvorAtualId = null;
 };
 
+// ==========================================
+// MOTOR DE ANÁLISE DE CIFRAS
+// ==========================================
 function extrairAcordesLimpos(textoBruto) {
   let texto = textoBruto.replace(/\([^)]*\)/g, '').replace(/[|\/\-_,;]/g, ' ');
   const regexAcorde = /\b([A-G][#b]?(?:m|maj|min|dim|aug|sus|add|M)?\d*(?:\/[A-G][#b]?)?)\b/g;
@@ -813,7 +868,6 @@ document.getElementById("btn-analisar").onclick = () => {
 
   const tomProvavel = detectarTom(acordesUnicos);
 
-  // --- 1. RENDERIZAR CIFRA FORMATADA ---
   const divCifra = document.getElementById("cifra-formatada");
   let linhas = texto.split('\n');
   let htmlCifra = "";
@@ -825,24 +879,24 @@ document.getElementById("btn-analisar").onclick = () => {
       return;
     }
     let linhaFormatada = linha.replace(/\[([A-G][#b]?(?:m|maj|min|dim|aug|sus|add|M)?\d*(?:\/[A-G][#b]?)?)\]/g, (match, ac) => {
-      return `<span class="acorde-txt" onclick="tocarAcorde('${ac.split('/')[0]}')">${ac}</span>`;
+      const acBase = ac.split('/')[0];
+      return `<span class="acorde-txt" onclick="abrirModal('${acBase}', 'Cifra')">${ac}</span>`;
     });
     
     if (linhaFormatada.includes(',')) {
        linhaFormatada = linhaFormatada.replace(/\b([A-G][#b]?(?:m|maj|min|dim|aug|sus|add|M)?\d*)\b/g, (match) => {
           if (["A", "E", "O", "As", "Os", "Em"].includes(match) && !linhaFormatada.includes('[')) return match;
-          return `<span class="acorde-txt" onclick="tocarAcorde('${match}')">${match}</span>`;
+          return `<span class="acorde-txt" onclick="abrirModal('${match}', 'Cifra')">${match}</span>`;
        });
     }
     htmlCifra += linhaFormatada + "\n";
   });
   divCifra.innerHTML = htmlCifra;
 
-  // --- 2. RENDERIZAR ACORDES ENCONTRADOS ---
   const divExtraidos = document.getElementById("acordes-extraidos");
   divExtraidos.innerHTML = `<div class="prog-card" style="border-left-color: var(--cyan); width: 100%;">
     <h4>Tom Detectado: <span style="color:var(--yellow)">${tomProvavel}</span></h4>
-    <p style="color: var(--muted); font-size: 0.8rem; margin-bottom: 10px;">Sequência extraída da sua cifra (clique para tocar):</p>
+    <p style="color: var(--muted); font-size: 0.8rem; margin-bottom: 10px;">Sequência extraída da sua cifra:</p>
     <div class="prog-acordes" id="lista-original"></div>
   </div>`;
 
@@ -852,14 +906,12 @@ document.getElementById("btn-analisar").onclick = () => {
     const btn = document.createElement("button");
     btn.className = "ac-btn grau-ii";
     btn.textContent = acBase;
-    btn.dataset.ac = acBase;
-    btn.onclick = () => tocarAcorde(acBase);
+    btn.onclick = () => abrirModal(acBase, "Acorde Original");
     listaOriginal.appendChild(btn);
     const s = document.createElement("span"); s.className = "seta"; s.textContent = "→";
     listaOriginal.appendChild(s);
   });
 
-  // --- 3. RENDERIZAR MELHORIAS ---
   const divMelhorados = document.getElementById("acordes-melhorados");
   divMelhorados.innerHTML = "";
   const melhorarAcorde = (ac) => {
@@ -887,8 +939,7 @@ document.getElementById("btn-analisar").onclick = () => {
     const btn = document.createElement("button");
     btn.className = "ac-btn grau-i";
     btn.textContent = acMelhorado;
-    btn.dataset.ac = acMelhorado;
-    btn.onclick = () => tocarAcorde(acMelhorado);
+    btn.onclick = () => abrirModal(acMelhorado, "Versão Melhorada");
     linhaMelhorada.appendChild(btn);
     const s = document.createElement("span"); s.className = "seta"; s.textContent = "→";
     linhaMelhorada.appendChild(s);
@@ -901,7 +952,6 @@ document.getElementById("btn-analisar").onclick = () => {
     divMelhorados.appendChild(criarCardProg(`Substituição 2-5-1 em ${tomProvavel}`, [m.ii, m.V7, m.I], ["ii", "V7", "I"]));
   }
 
-  // --- 4. RENDERIZAR DIAGRAMAS ---
   const divDiag = document.getElementById("diagramas-importados");
   divDiag.innerHTML = "";
   acordesUnicos.forEach(ac => {
@@ -917,13 +967,12 @@ document.getElementById("btn-analisar").onclick = () => {
     if (ACORDES[acParaDesenhar]) {
       const card = document.createElement("div");
       card.className = "diag-card";
-      card.dataset.ac = acParaDesenhar;
       card.innerHTML = `
         <div class="nome">${acParaDesenhar}</div>
         ${desenharSVG(acParaDesenhar)}
         <div class="funcao" style="${aviso ? 'color:var(--red2)' : ''}">${aviso || 'Original: ' + ac}</div>
       `;
-      card.onclick = () => tocarAcorde(acParaDesenhar);
+      card.onclick = () => abrirModal(acParaDesenhar, aviso || 'Acorde Original');
       divDiag.appendChild(card);
     }
   });
@@ -938,39 +987,7 @@ function init() {
   document.querySelectorAll(".tab").forEach(t => {
     t.onclick = () => trocarAba(t.dataset.tab);
   });
-
-  document.getElementById("play-all-vilao").onclick = async () => {
-    const mapa = TONALIDADES[tonalidadeAtual];
-    await tocarSequencia(["i","bII","bVI","V7"].map(f => mapa[f]), 100);
-  };
-  
-  document.getElementById("stop-all").onclick = () => { pararFlag = true; destacarAcorde(null); };
-  document.getElementById("stop-251").onclick = () => { pararFlag = true; destacarAcorde(null); };
-
-  document.getElementById("play-251").onclick = async () => {
-    const m = TONALIDADES_MAIORES[tonalidadeMaiorAtual];
-    await tocarSequencia([m.ii, m.V7, m.I], 100);
-  };
-  
-  document.getElementById("play-turnaround").onclick = async () => {
-    const m = TONALIDADES_MAIORES[tonalidadeMaiorAtual];
-    await tocarSequencia([m.I, "Am7", m.ii, m.V7], 110);
-  };
-  
-  document.getElementById("play-vamp").onclick = async () => {
-    const m = TONALIDADES_MAIORES[tonalidadeMaiorAtual];
-    await tocarSequencia(["Fmaj7","G7","Em7","Am7", m.ii, m.V7, m.I], 100);
-  };
-
   trocarAba("vilao");
-
-  document.addEventListener("keydown", (e) => {
-    const n = parseInt(e.key);
-    if (n >= 1 && n <= 9 && abaAtual !== "import") {
-      const tons = abaAtual === "vilao" ? Object.keys(TONALIDADES) : Object.keys(TONALIDADES_MAIORES);
-      if (tons[n-1]) selecionarTon(tons[n-1]);
-    }
-  });
 }
 
 init();
