@@ -57,6 +57,7 @@
   .ton-btn.active-251 { background: #1b3a1f; border-left-color: var(--green); color: white; font-weight: bold; }
   
   .saved-btn { display: flex; justify-content: space-between; align-items: center; padding-right: 8px; }
+  .saved-btn.active-saved { background: rgba(179,136,255,0.15); border-left-color: var(--purple); }
   .saved-btn .del-btn { background: transparent; border: none; color: var(--red2); cursor: pointer; font-size: 1.2rem; padding: 0 5px; transition: transform 0.2s; font-weight: bold; }
   .saved-btn .del-btn:hover { transform: scale(1.3); color: var(--red); }
   
@@ -114,21 +115,76 @@
   }
   .input-titulo:focus { border-color: var(--purple); }
 
+  .input-tom {
+    padding: 8px 12px; background: var(--panel); color: var(--text); 
+    border: 1px solid var(--cyan); border-radius: 8px; font-family: inherit;
+    font-size: 0.9rem; outline: none; width: 130px; cursor: pointer; font-weight: bold;
+  }
+  .input-tom:focus { border-color: var(--purple); box-shadow: 0 0 10px rgba(77,208,225,0.4); }
+  .input-tom option { background: var(--panel); color: var(--text); }
+
   .badge { display: inline-block; background: var(--panel2); border: 1px solid var(--border); border-radius: 4px; padding: 2px 8px; font-size: 0.75rem; color: var(--muted); margin-left: 8px; }
   .badge.g251 { border-color: var(--green); color: var(--green); }
   .badge.import { border-color: var(--purple); color: var(--purple); }
+  .badge.detect { border-color: var(--yellow); color: var(--yellow); background: rgba(255,210,63,0.1); }
   .hidden { display: none !important; }
   
   .cifra-container {
     background: var(--panel); border: 1px solid var(--border);
-    border-radius: 8px; padding: 20px; font-family: 'Courier New', Courier, monospace;
-    white-space: pre-wrap; line-height: 1.6; overflow-x: auto; margin-top: 10px;
+    border-radius: 8px; padding: 20px; margin-top: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 15px;
+    line-height: 1.4;
+    white-space: pre-wrap;
+    overflow-x: auto;
+    display: flex;
+    flex-direction: column;
   }
-  .cifra-container .acorde-txt { color: var(--yellow); font-weight: bold; cursor: pointer; transition: color 0.1s; }
-  .cifra-container .acorde-txt:hover { color: var(--red2); text-decoration: underline; }
-  .cifra-container .secao { color: var(--purple); font-weight: bold; font-style: italic; margin-top: 10px; display: block; }
+  
+  .cifra-linha {
+    position: relative;
+    display: block;
+    min-height: 1.4em;
+    line-height: 1.4;
+    white-space: pre;
+  }
 
-  /* MODAL DE DIAGRAMA */
+  .cifra-espaco { height: 0.9em; }
+
+  .linha-acordes { min-height: 1.25em; line-height: 1.25; }
+  .linha-acordes .acorde-flutuante { position: static; top: auto; white-space: pre; }
+  .linha-letra .cifra-letra { white-space: pre; }
+  
+  .cifra-letra { color: var(--text); white-space: pre-wrap; }
+  
+  /* Acorde clicável dentro da cifra */
+  .acorde-flutuante {
+    color: var(--yellow);
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.1s, background 0.1s;
+    white-space: pre;
+    font-family: 'Courier New', Courier, monospace;
+    padding: 0 1px;
+    border-radius: 3px;
+  }
+  
+  .acorde-flutuante:hover {
+    color: #000;
+    background: var(--yellow);
+    text-decoration: none;
+  }
+
+  .secao-cifra {
+    color: var(--purple);
+    font-weight: bold;
+    font-style: italic;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    display: block;
+    font-size: 14px;
+  }
+
   #modal-diagrama {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(4px);
@@ -149,7 +205,6 @@
   .modal-content h3 { color: var(--yellow); font-size: 2rem; margin-bottom: 4px; }
   .modal-content .funcao-modal { color: var(--muted); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 16px; }
   
-  /* ABAS DE ESCALA */
   .escala-tabs { display: flex; gap: 10px; margin-bottom: 16px; justify-content: center; }
   .escala-tab {
     background: var(--panel2); border: 1px solid var(--border); color: var(--muted);
@@ -166,13 +221,73 @@
   .close-btn:hover { color: var(--red2); }
 
   svg text { font-family: 'Segoe UI', sans-serif; }
+
+  .sugestao-251 {
+    background: linear-gradient(135deg, rgba(76,175,80,0.08), rgba(77,208,225,0.05));
+    border: 1px solid var(--green); border-left: 4px solid var(--green);
+    border-radius: 10px; padding: 16px 18px; margin-bottom: 14px;
+    transition: all 0.2s;
+  }
+  .sugestao-251:hover { border-color: var(--cyan); box-shadow: 0 4px 20px rgba(76,175,80,0.2); }
+  .sugestao-251 .sug-header { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+  .sugestao-251 .sug-num { 
+    background: var(--green); color: #000; width: 26px; height: 26px; 
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-weight: bold; font-size: 0.85rem; flex-shrink: 0;
+  }
+  .sugestao-251 .sug-titulo { color: var(--green); font-weight: bold; font-size: 0.95rem; }
+  .sugestao-251 .sug-local { color: var(--muted); font-size: 0.8rem; margin-top: 3px; line-height: 1.4; }
+  .sugestao-251 .sug-cadencia {
+    display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+    background: var(--panel); padding: 10px 14px; border-radius: 8px;
+    border: 1px dashed var(--border); margin: 10px 0;
+    font-family: 'Courier New', monospace; font-size: 1rem;
+  }
+  .sugestao-251 .sug-acoes { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+  .sugestao-251 .btn-aplicar {
+    background: var(--green); color: #000; border: none; padding: 7px 14px;
+    border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 0.85rem;
+    transition: all 0.15s;
+  }
+  .sugestao-251 .btn-aplicar:hover { background: var(--cyan); transform: translateY(-1px); }
+  .sugestao-251 .btn-ouvir {
+    background: var(--panel2); color: var(--text); border: 1px solid var(--border);
+    padding: 7px 14px; border-radius: 6px; cursor: pointer; font-size: 0.85rem;
+    transition: all 0.15s;
+  }
+  .sugestao-251 .btn-ouvir:hover { border-color: var(--cyan); color: var(--cyan); }
+
+  .legenda-251 {
+    display: flex; gap: 20px; flex-wrap: wrap; padding: 12px 16px;
+    background: var(--panel); border: 1px solid var(--border); border-radius: 8px;
+    margin-bottom: 16px; font-size: 0.8rem; color: var(--muted);
+  }
+  .legenda-251 span { display: flex; align-items: center; gap: 6px; }
+  .legenda-251 .dot { width: 12px; height: 12px; border-radius: 3px; }
+
+  .aviso-251 {
+    padding: 14px 18px; background: var(--panel); border: 1px dashed var(--border);
+    border-radius: 8px; color: var(--muted); text-align: center; font-style: italic;
+    font-size: 0.85rem;
+  }
+
+  #toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px);
+    background: var(--green); color: #000; padding: 12px 24px; border-radius: 8px;
+    font-weight: bold; font-size: 0.9rem; z-index: 2000;
+    transition: transform 0.3s ease, opacity 0.3s ease; opacity: 0; pointer-events: none;
+    box-shadow: 0 8px 24px rgba(76,175,80,0.4);
+  }
+  #toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+  #toast.warn { background: var(--yellow); }
+  #toast.info { background: var(--cyan); }
 </style>
 </head>
 <body>
 
 <header>
   🎸 ACORDES VILÃO + ESCALAS + IMPORTADOR 🎸
-  <small>Frígio · Menor Harmônica · ii–V–I · Gospel · Escalas</small>
+  <small>Frígio · Menor Harmônica · ii–V–I · Gospel · Escalas · Transposição · Analisador 2-5-1</small>
 </header>
 
 <div id="tabs">
@@ -222,8 +337,13 @@
       <div class="action-bar">
         <input type="text" id="input-titulo" class="input-titulo" placeholder="Nome do Louvor (ex: Oceanos)">
         <button class="action-btn purple" id="btn-salvar">💾 Salvar Louvor</button>
-        <button class="action-btn" id="btn-importar-txt" style="background: var(--cyan); color: #000; border: none;">📁 Importar .txt</button>
+        <button class="action-btn purple" id="btn-novo" style="background: var(--cyan); color:#000;">➕ Novo Louvor</button>
+        <button class="action-btn" id="btn-importar-txt" style="background: var(--purple); color: #fff; border: none;">📁 Importar .txt</button>
         <input type="file" id="file-input" accept=".txt" style="display: none;">
+      </div>
+
+      <div id="status-edicao" style="font-size: 0.85rem; margin-bottom: 8px; color: var(--muted);">
+        ✏️ Modo: <b style="color: var(--yellow);">Novo Louvor</b>
       </div>
 
       <textarea id="input-cifra" rows="10" style="width: 100%; padding: 10px; background: var(--panel); color: var(--text); border: 1px solid var(--border); border-radius: 8px; font-family: monospace; font-size: 14px; resize: vertical; margin-bottom: 10px;" placeholder="Cole a cifra aqui..."></textarea>
@@ -231,11 +351,39 @@
       <div class="action-bar">
         <button class="action-btn purple" id="btn-analisar">🧠 Extrair, Desenhar e Melhorar</button>
         <button class="action-btn" id="btn-limpar" style="background: var(--panel2);">Limpar</button>
+        <span style="color: var(--muted); font-size: 0.85rem; margin-left: 10px;">🎵 Transpor para:</span>
+        <select id="select-tom-destino" class="input-tom">
+          <option value="">Tom original</option>
+          <option value="C">C (Dó)</option>
+          <option value="C#">C# / Db</option>
+          <option value="D">D (Ré)</option>
+          <option value="D#">D# / Eb</option>
+          <option value="E">E (Mi)</option>
+          <option value="F">F (Fá)</option>
+          <option value="F#">F# / Gb</option>
+          <option value="G">G (Sol)</option>
+          <option value="G#">G# / Ab</option>
+          <option value="A">A (Lá)</option>
+          <option value="A#">A# / Bb</option>
+          <option value="B">B (Si)</option>
+        </select>
+        <button class="action-btn" id="btn-transpor" style="background: var(--yellow); color: #000; border: none;">🔄 Transpor Cifra</button>
       </div>
 
       <div id="resultado-analise" class="hidden">
         <div class="secao-titulo" style="color: var(--green); border-bottom-color: var(--green);">📜 Cifra Formatada</div>
         <div id="cifra-formatada" class="cifra-container"></div>
+
+        <div class="secao-titulo" style="color: var(--green); border-bottom-color: var(--green);">
+          🎯 Analisador de 2-5-1 — Onde inserir para melhorar a melodia
+          <span class="badge detect">NOVO</span>
+        </div>
+        <div class="legenda-251">
+          <span><span class="dot" style="background:var(--green)"></span> ii (subdominante) — prepara</span>
+          <span><span class="dot" style="background:var(--red2)"></span> V7 (dominante) — tensão</span>
+          <span><span class="dot" style="background:var(--yellow)"></span> I (tônica) — resolve</span>
+        </div>
+        <div id="sugestoes-251"></div>
 
         <div class="secao-titulo" style="color: var(--cyan); border-bottom-color: var(--cyan);">🎸 Acordes Encontrados</div>
         <div id="acordes-extraidos" class="prog-grid"></div>
@@ -250,7 +398,6 @@
   </main>
 </div>
 
-<!-- MODAL (POP-UP) DO DIAGRAMA E ESCALA -->
 <div id="modal-diagrama" onclick="fecharModal(event)">
   <div class="modal-content" onclick="event.stopPropagation()">
     <button class="close-btn" onclick="document.getElementById('modal-diagrama').classList.remove('show')">✕</button>
@@ -270,11 +417,11 @@
   </div>
 </div>
 
-<div id="status"></div>
+<div id="toast"></div>
 
 <script>
 // ==========================================
-// BANCO DE ACORDES
+// BANCO DE ACORDES (corrigido e ampliado)
 // ==========================================
 const ACORDES = {
   "Am":  ["x",0,2,2,1,0], "A#m": ["x",1,3,3,2,1], "Bm":  ["x",2,4,4,3,2],
@@ -310,7 +457,9 @@ const ACORDES = {
   "E7sub": [0,2,0,1,0,0], "F7sub": [1,3,1,2,1,1], "Gb7":  [2,4,2,3,2,2],
   "G7sub": [3,2,0,0,0,1], "Ab7":  [4,3,1,1,1,2], "A7sub": ["x",0,2,0,2,0],
   "Bb7":  ["x",1,3,1,3,1], "B7sub": ["x",2,1,2,0,2],
-  "Am6":  ["x",0,2,2,1,2], "Am(maj7)": ["x",0,2,1,1,0]
+  "Am6":  ["x",0,2,2,1,2], "Am(maj7)": ["x",0,2,1,1,0],
+  "A9":   ["x",0,2,0,0,2], "D9":   ["x","x",0,2,1,0], "Dm9":  ["x","x",0,2,1,1],
+  "E4":   [0,2,2,2,0,0], "Esus4":[0,2,2,2,0,0], "Asus2":["x",0,2,2,0,0]
 };
 
 const TONALIDADES = {
@@ -358,25 +507,43 @@ const FUNCOES_LABEL = { i:"Tônica (i)", bII:"Napolitano (bII)", bVI:"Sexta (bVI
 let louvorAtualId = null; 
 let acordeModalAtual = "C";
 let escalaModalAtual = "maior";
+let cifraOriginal = "";
+let _analiseTimer = null;
+let _sugestoes251 = [];
+
+const SVG_CACHE = new Map();
+function desenharSVGComCache(acorde, grande = false) {
+  const chave = acorde + "|" + (grande ? "G" : "P");
+  if (SVG_CACHE.has(chave)) return SVG_CACHE.get(chave);
+  const svg = desenharSVG(acorde, grande);
+  SVG_CACHE.set(chave, svg);
+  return svg;
+}
+
+function mostrarToast(msg, tipo = "") {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.className = tipo;
+  t.classList.add("show");
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.classList.remove("show"), 2200);
+}
 
 // ==========================================
 // LÓGICA DE ESCALAS
 // ==========================================
 const NOTAS_BASE = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
-const CORDAS_SOLTAS_NOTAS = ["E", "A", "D", "G", "B", "E"]; // 6ª à 1ª
+const CORDAS_SOLTAS_NOTAS = ["E", "A", "D", "G", "B", "E"];
 
-// Intervalos em semitons
 const ESCALA_MAIOR = [0, 2, 4, 5, 7, 9, 11];
 const ESCALA_MENOR = [0, 2, 3, 5, 7, 8, 10];
 
 function obterNotasEscala(tonica, tipo) {
   let indexTonica = NOTAS_BASE.indexOf(tonica);
   if (indexTonica === -1) {
-    // Lida com bemóis
     const equivalentes = { "Db":"C#", "Eb":"D#", "Gb":"F#", "Ab":"G#", "Bb":"A#" };
     indexTonica = NOTAS_BASE.indexOf(equivalentes[tonica] || "C");
   }
-  
   const intervalos = tipo === "maior" ? ESCALA_MAIOR : ESCALA_MENOR;
   return intervalos.map(i => NOTAS_BASE[(indexTonica + i) % 12]);
 }
@@ -395,62 +562,63 @@ function desenharEscalaNoModal() {
   const W = 800; const H = 180;
   const margX = 40; const margY = 30;
   const passoX = (W - 2*margX) / casas;
-  const passoY = (H - margY - 30) / 5; // 6 cordas = 5 espaços
+  const passoY = (H - margY - 30) / 5;
   
-  let svg = `<svg width="100%" height="${H}" viewBox="0 0 ${W} ${H}" style="max-width: 100%;">`;
+  let partes = [];
+  partes.push(`<svg width="100%" height="${H}" viewBox="0 0 ${W} ${H}" style="max-width: 100%;">`);
   
-  // Cordas (horizontais)
   for (let i = 0; i < 6; i++) {
     const y = margY + i * passoY;
-    svg += `<line x1="${margX}" y1="${y}" x2="${W-margX}" y2="${y}" stroke="#444" stroke-width="1.5"/>`;
-    svg += `<text x="${margX-15}" y="${y+4}" text-anchor="end" font-size="12" fill="#888" font-weight="bold">${CORDAS_SOLTAS_NOTAS[i]}</text>`;
+    partes.push(`<line x1="${margX}" y1="${y}" x2="${W-margX}" y2="${y}" stroke="#444" stroke-width="1.5"/>`);
+    partes.push(`<text x="${margX-15}" y="${y+4}" text-anchor="end" font-size="12" fill="#888" font-weight="bold">${CORDAS_SOLTAS_NOTAS[i]}</text>`);
   }
   
-  // Trastes (verticais)
   for (let c = 0; c <= casas; c++) {
     const x = margX + c * passoX;
-    svg += `<line x1="${x}" y1="${margY}" x2="${x}" y2="${H-30}" stroke="#444" stroke-width="1.5"/>`;
+    partes.push(`<line x1="${x}" y1="${margY}" x2="${x}" y2="${H-30}" stroke="#444" stroke-width="1.5"/>`);
     if (c > 0) {
-      svg += `<text x="${x}" y="${H-10}" text-anchor="middle" font-size="11" fill="#666">${c}</text>`;
+      partes.push(`<text x="${x}" y="${H-10}" text-anchor="middle" font-size="11" fill="#666">${c}</text>`);
     }
   }
   
-  // Marcadores de pestana (casas 3, 5, 7, 9, 12)
   [3, 5, 7, 9].forEach(c => {
     const x = margX + c * passoX - passoX/2;
     const y = margY + 2.5 * passoY;
-    svg += `<circle cx="${x}" cy="${y}" r="4" fill="#222"/>`;
+    partes.push(`<circle cx="${x}" cy="${y}" r="4" fill="#222"/>`);
   });
   const x12 = margX + 12 * passoX - passoX/2;
-  svg += `<circle cx="${x12}" cy="${margY + 1.5*passoY}" r="4" fill="#222"/>`;
-  svg += `<circle cx="${x12}" cy="${margY + 3.5*passoY}" r="4" fill="#222"/>`;
+  partes.push(`<circle cx="${x12}" cy="${margY + 1.5*passoY}" r="4" fill="#222"/>`);
+  partes.push(`<circle cx="${x12}" cy="${margY + 3.5*passoY}" r="4" fill="#222"/>`);
 
-  // Desenhar Notas
   for (let c = 0; c < 6; c++) {
     const notaCorda = CORDAS_SOLTAS_NOTAS[c];
     let idxCorda = NOTAS_BASE.indexOf(notaCorda);
     
     for (let casa = 0; casa <= casas; casa++) {
       const notaAtual = NOTAS_BASE[(idxCorda + casa) % 12];
-      
       if (notasEscala.includes(notaAtual)) {
         const x = margX + casa * passoX;
         const y = margY + c * passoY;
         
-        const isTonica = (notaAtual === tonicaBase) || (notaAtual === "C#" && tonicaBase === "Db") || (notaAtual === "D#" && tonicaBase === "Eb") || (notaAtual === "F#" && tonicaBase === "Gb") || (notaAtual === "G#" && tonicaBase === "Ab") || (notaAtual === "A#" && tonicaBase === "Bb");
+        const isTonica = (notaAtual === tonicaBase) || 
+                         (notaAtual === "C#" && tonicaBase === "Db") || 
+                         (notaAtual === "D#" && tonicaBase === "Eb") || 
+                         (notaAtual === "F#" && tonicaBase === "Gb") || 
+                         (notaAtual === "G#" && tonicaBase === "Ab") || 
+                         (notaAtual === "A#" && tonicaBase === "Bb");
         
         const corFundo = isTonica ? "var(--yellow)" : "var(--green)";
         const corTexto = isTonica ? "#000" : "#fff";
         const raio = isTonica ? 11 : 9;
         
-        svg += `<circle cx="${x}" cy="${y}" r="${raio}" fill="${corFundo}" />`;
-        svg += `<text x="${x}" y="${y+4}" text-anchor="middle" font-size="9" font-weight="bold" fill="${corTexto}">${notaAtual}</text>`;
+        partes.push(`<circle cx="${x}" cy="${y}" r="${raio}" fill="${corFundo}" />`);
+        partes.push(`<text x="${x}" y="${y+4}" text-anchor="middle" font-size="9" font-weight="bold" fill="${corTexto}">${notaAtual}</text>`);
       }
     }
   }
   
-  svg += "</svg>";
-  document.getElementById("modal-escala-container").innerHTML = svg;
+  partes.push("</svg>");
+  document.getElementById("modal-escala-container").innerHTML = partes.join("");
 }
 
 // ==========================================
@@ -462,9 +630,8 @@ function abrirModal(acorde, funcao = "Acorde") {
   document.getElementById("modal-funcao").textContent = funcao;
   
   acordeModalAtual = acorde;
-  document.getElementById("modal-acorde-container").innerHTML = desenharSVG(acorde, true);
+  document.getElementById("modal-acorde-container").innerHTML = desenharSVGComCache(acorde, true);
   
-  // Reseta a aba de escala para Maior por padrão
   escalaModalAtual = "maior";
   document.querySelectorAll(".escala-tab").forEach(t => t.classList.toggle("active", t.textContent.toLowerCase() === "maior"));
   desenharEscalaNoModal();
@@ -483,24 +650,29 @@ function fecharModal(e) {
 // ==========================================
 function simplificarAcorde(acorde) {
   let base = acorde.split('/')[0];
-  let simplificado = base.replace(/\([^)]*\)/g, '').replace('add9','').replace('9','').replace('11','').replace('13','');
-  if (ACORDES[simplificado]) return simplificado;
-  if (base.includes('maj7')) {
-    let tentativa = base.replace('maj7', '7');
-    if (ACORDES[tentativa]) return tentativa;
-    tentativa = base.replace('maj7', 'm7');
-    if (ACORDES[tentativa]) return tentativa;
+  if (ACORDES[base]) return base;
+  let s = base.replace(/\([^)]*\)/g, '')
+              .replace(/add9|add11|add13|sus2|sus4|sus/g, '')
+              .replace(/9|11|13|6/g, '');
+  if (ACORDES[s]) return s;
+  if (base.includes('maj7') || base.includes('7M')) {
+    let t = base.replace(/maj7|7M/g, '7');
+    if (ACORDES[t]) return t;
+    t = base.replace(/maj7|7M/g, 'm7');
+    if (ACORDES[t]) return t;
+    t = base.replace(/maj7|7M/g, '');
+    if (ACORDES[t]) return t;
   }
-  if (base.includes('7') || base.includes('9')) {
-    let tentativa = base.replace(/7|9|11|13/g, '');
-    if (ACORDES[tentativa]) return tentativa;
+  if (/\d/.test(base)) {
+    let t = base.replace(/\d+/g, '');
+    if (ACORDES[t]) return t;
   }
   if (base.includes('m')) {
-      let tentativa = base.replace('m', '');
-      if (ACORDES[tentativa]) return tentativa;
+    let t = base.replace('m', '');
+    if (ACORDES[t]) return t;
   } else {
-      let tentativa = base + 'm';
-      if (ACORDES[tentativa]) return tentativa;
+    let t = base + 'm';
+    if (ACORDES[t]) return t;
   }
   return base; 
 }
@@ -508,7 +680,9 @@ function simplificarAcorde(acorde) {
 function desenharSVG(acordeOriginal, grande = false) {
   let acParaDesenhar = acordeOriginal.split('/')[0];
   if (!ACORDES[acParaDesenhar]) acParaDesenhar = simplificarAcorde(acParaDesenhar);
-  if (!ACORDES[acParaDesenhar]) return "<div style='color:var(--muted)'>(sem diagrama)</div>";
+  if (!ACORDES[acParaDesenhar]) {
+    return `<div style="color:var(--muted); padding:20px; font-size:0.8rem;">(sem diagrama<br>para ${acordeOriginal})</div>`;
+  }
 
   const pos = ACORDES[acParaDesenhar];
   const nums = pos.filter(p => typeof p === "number" && p > 0);
@@ -526,45 +700,46 @@ function desenharSVG(acordeOriginal, grande = false) {
   const fonteNum = grande ? 14 : 9;
   const fonteCorda = grande ? 12 : 8;
 
-  let svg = `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`;
+  let partes = [];
+  partes.push(`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`);
   for (let i = 0; i < 6; i++) {
     const x = margX + i * passoX;
-    svg += `<line x1="${x}" y1="${margY}" x2="${x}" y2="${H-(grande?35:18)}" stroke="#555" stroke-width="${grande?2:1}"/>`;
+    partes.push(`<line x1="${x}" y1="${margY}" x2="${x}" y2="${H-(grande?35:18)}" stroke="#555" stroke-width="${grande?2:1}"/>`);
   }
   for (let j = 0; j <= casas; j++) {
     const y = margY + j * passoY;
-    svg += `<line x1="${margX}" y1="${y}" x2="${W-margX}" y2="${y}" stroke="#555" stroke-width="${grande?2:1}"/>`;
+    partes.push(`<line x1="${margX}" y1="${y}" x2="${W-margX}" y2="${y}" stroke="#555" stroke-width="${grande?2:1}"/>`);
   }
-  svg += `<line x1="${margX}" y1="${margY}" x2="${W-margX}" y2="${margY}" stroke="#aaa" stroke-width="${grande?5:3}"/>`;
+  partes.push(`<line x1="${margX}" y1="${margY}" x2="${W-margX}" y2="${margY}" stroke="#aaa" stroke-width="${grande?5:3}"/>`);
   
   for (let j = 1; j <= casas; j++) {
     const y = margY + j * passoY - passoY/2 + (grande?5:4);
-    svg += `<text x="${grande?15:8}" y="${y}" font-size="${fonteNum}" fill="#888" font-weight="bold">${base + j - 1}</text>`;
+    partes.push(`<text x="${grande?15:8}" y="${y}" font-size="${fonteNum}" fill="#888" font-weight="bold">${base + j - 1}</text>`);
   }
   
   pos.forEach((p, i) => {
     const x = margX + i * passoX;
     if (p === "x") {
-      svg += `<text x="${x}" y="${grande?28:14}" text-anchor="middle" font-size="${grande?18:11}" fill="#e63946" font-weight="bold">✕</text>`;
+      partes.push(`<text x="${x}" y="${grande?28:14}" text-anchor="middle" font-size="${grande?18:11}" fill="#e63946" font-weight="bold">✕</text>`);
     } else if (p === 0) {
-      svg += `<circle cx="${x}" cy="${grande?22:10}" r="${grande?8:5}" fill="none" stroke="#4dd0e1" stroke-width="${grande?3:1.5}"/>`;
+      partes.push(`<circle cx="${x}" cy="${grande?22:10}" r="${grande?8:5}" fill="none" stroke="#4dd0e1" stroke-width="${grande?3:1.5}"/>`);
     } else if (typeof p === "number") {
       const y = margY + (p - base + 0.5) * passoY;
-      svg += `<circle cx="${x}" cy="${y}" r="${raio}" fill="#e63946"/>`;
+      partes.push(`<circle cx="${x}" cy="${y}" r="${raio}" fill="#e63946"/>`);
     }
   });
   
   ["E","A","D","G","B","e"].forEach((n, i) => {
     const x = margX + i * passoX;
-    svg += `<text x="${x}" y="${H-(grande?10:4)}" text-anchor="middle" font-size="${fonteCorda}" fill="#777" font-weight="bold">${n}</text>`;
+    partes.push(`<text x="${x}" y="${H-(grande?10:4)}" text-anchor="middle" font-size="${fonteCorda}" fill="#777" font-weight="bold">${n}</text>`);
   });
   
-  svg += "</svg>";
-  return svg;
+  partes.push("</svg>");
+  return partes.join("");
 }
 
 // ==========================================
-// RENDERS (VILÃO E 2-5-1)
+// RENDERS
 // ==========================================
 function classeAcordeVilao(func) {
   if (func === "i") return "ac-btn tonica";
@@ -606,7 +781,7 @@ function renderDiagramas(ton) {
     const ac = mapa[f];
     const card = document.createElement("div");
     card.className = "diag-card";
-    card.innerHTML = `<div class="nome">${ac}</div>${desenharSVG(ac)}<div class="funcao">${FUNCOES_LABEL[f]}</div>`;
+    card.innerHTML = `<div class="nome">${ac}</div>${desenharSVGComCache(ac)}<div class="funcao">${FUNCOES_LABEL[f]}</div>`;
     card.onclick = () => abrirModal(ac, FUNCOES_LABEL[f]);
     div.appendChild(card);
   });
@@ -678,7 +853,7 @@ function render251(ton) {
   ].forEach(({ac, label}) => {
     const card = document.createElement("div");
     card.className = "diag-card";
-    card.innerHTML = `<div class="nome">${ac}</div>${desenharSVG(ac)}<div class="funcao">${label}</div>`;
+    card.innerHTML = `<div class="nome">${ac}</div>${desenharSVGComCache(ac)}<div class="funcao">${label}</div>`;
     card.onclick = () => abrirModal(ac, label);
     pDiag.appendChild(card);
   });
@@ -744,8 +919,24 @@ function trocarAba(aba) {
 // ==========================================
 // LÓGICA DE LOUVORES SALVOS
 // ==========================================
-function getLouvoresSalvos() { return JSON.parse(localStorage.getItem("meus_louvores") || "{}"); }
-function salvarNoStorage(louvores) { localStorage.setItem("meus_louvores", JSON.stringify(louvores)); }
+function getLouvoresSalvos() {
+  try { return JSON.parse(localStorage.getItem("meus_louvores") || "{}"); }
+  catch(e) { return {}; }
+}
+function salvarNoStorage(louvores) {
+  try { localStorage.setItem("meus_louvores", JSON.stringify(louvores)); }
+  catch(e) { alert("Erro ao salvar no navegador. Armazenamento cheio?"); }
+}
+
+function atualizarStatusEdicao() {
+  const statusDiv = document.getElementById("status-edicao");
+  if (louvorAtualId && getLouvoresSalvos()[louvorAtualId]) {
+    const titulo = getLouvoresSalvos()[louvorAtualId].titulo;
+    statusDiv.innerHTML = `✏️ Editando: <b style="color: var(--green);">${titulo}</b>`;
+  } else {
+    statusDiv.innerHTML = `✏️ Modo: <b style="color: var(--yellow);">Novo Louvor</b>`;
+  }
+}
 
 function carregarListaSalvos() {
   const div = document.getElementById("lista-salvos");
@@ -760,7 +951,7 @@ function carregarListaSalvos() {
 
   keys.forEach(id => {
     const btn = document.createElement("div");
-    btn.className = "saved-btn";
+    btn.className = "saved-btn" + (id === louvorAtualId ? " active-saved" : "");
     btn.innerHTML = `<span style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${louvores[id].titulo}</span><button class="del-btn" title="Excluir">✕</button>`;
     btn.querySelector("span").onclick = () => carregarLouvorSalvo(id);
     btn.querySelector(".del-btn").onclick = (e) => {
@@ -768,8 +959,12 @@ function carregarListaSalvos() {
       if (confirm(`Apagar "${louvores[id].titulo}"?`)) {
         delete louvores[id];
         salvarNoStorage(louvores);
+        if (louvorAtualId === id) {
+          louvorAtualId = null;
+          atualizarStatusEdicao();
+        }
         carregarListaSalvos();
-        if (louvorAtualId === id) document.getElementById("btn-limpar").click();
+        mostrarToast("🗑️ Louvor apagado", "warn");
       }
     };
     div.appendChild(btn);
@@ -784,8 +979,15 @@ function carregarLouvorSalvo(id) {
   louvorAtualId = id;
   document.getElementById("input-titulo").value = louvor.titulo;
   document.getElementById("input-cifra").value = louvor.cifra;
+  cifraOriginal = louvor.cifra;
   document.getElementById("main").scrollTop = 0;
-  document.getElementById("btn-analisar").click();
+  document.getElementById("select-tom-destino").value = "";
+  
+  atualizarStatusEdicao();
+  carregarListaSalvos();
+  
+  analisarCifra();
+  mostrarToast(`📂 Carregado: ${louvor.titulo}`, "info");
 }
 
 document.getElementById("btn-salvar").onclick = () => {
@@ -795,12 +997,50 @@ document.getElementById("btn-salvar").onclick = () => {
   if (!cifra) return alert("A cifra está vazia!");
   
   const louvores = getLouvoresSalvos();
-  const id = louvorAtualId || "louvor_" + Date.now();
+  let id;
+  
+  if (louvorAtualId && louvores[louvorAtualId] && louvores[louvorAtualId].titulo === titulo) {
+    id = louvorAtualId;
+  } else {
+    let existente = null;
+    for (const k in louvores) {
+      if (louvores[k].titulo === titulo && k !== louvorAtualId) {
+        existente = k; break;
+      }
+    }
+    
+    if (existente) {
+      if (!confirm(`Já existe um louvor chamado "${titulo}". Deseja substituir?`)) return;
+      id = existente;
+    } else {
+      id = "louvor_" + Date.now() + "_" + Math.floor(Math.random() * 1000);
+    }
+  }
+  
   louvores[id] = { titulo, cifra };
   salvarNoStorage(louvores);
   
   louvorAtualId = id;
+  atualizarStatusEdicao();
   carregarListaSalvos();
+  mostrarToast(`💾 Louvor "${titulo}" salvo!`);
+};
+
+document.getElementById("btn-novo").onclick = () => {
+  if (document.getElementById("input-cifra").value.trim() && !confirm("Descartar o conteúdo atual e começar um novo louvor?")) return;
+  
+  louvorAtualId = null;
+  cifraOriginal = "";
+  document.getElementById("input-titulo").value = "";
+  document.getElementById("input-cifra").value = "";
+  document.getElementById("resultado-analise").classList.add("hidden");
+  document.getElementById("select-tom-destino").value = "";
+  document.getElementById("main").scrollTop = 0;
+  
+  atualizarStatusEdicao();
+  carregarListaSalvos();
+  document.getElementById("input-titulo").focus();
+  mostrarToast("📝 Novo louvor iniciado", "info");
 };
 
 document.getElementById("btn-importar-txt").onclick = () => { document.getElementById("file-input").click(); };
@@ -809,47 +1049,65 @@ document.getElementById("file-input").onchange = (e) => {
   if (!file) return;
   const reader = new FileReader();
   reader.onload = (event) => {
-    document.getElementById("input-cifra").value = event.target.result;
-    if (!document.getElementById("input-titulo").value) document.getElementById("input-titulo").value = file.name.replace(".txt", "");
+    const texto = event.target.result;
+    document.getElementById("input-cifra").value = texto;
+    cifraOriginal = texto;
+    if (!document.getElementById("input-titulo").value) {
+      document.getElementById("input-titulo").value = file.name.replace(".txt", "");
+    }
+    louvorAtualId = null;
+    atualizarStatusEdicao();
+    mostrarToast("📁 Arquivo importado!");
   };
   reader.readAsText(file);
   e.target.value = "";
 };
 
 document.getElementById("btn-limpar").onclick = () => {
+  if ((document.getElementById("input-cifra").value.trim() || document.getElementById("input-titulo").value.trim()) && 
+      !confirm("Limpar o formulário? O louvor salvo na lista NÃO será apagado.")) return;
   document.getElementById("input-cifra").value = "";
   document.getElementById("input-titulo").value = "";
   document.getElementById("resultado-analise").classList.add("hidden");
+  cifraOriginal = "";
   louvorAtualId = null;
+  document.getElementById("select-tom-destino").value = "";
+  atualizarStatusEdicao();
+  carregarListaSalvos();
 };
 
 // ==========================================
-// MOTOR DE ANÁLISE DE CIFRAS
+// MOTOR DE ANÁLISE
 // ==========================================
+const FALSOS_POSITIVOS = new Set(["A","E","O","As","Os","Um","Uma","Eu","Em","Do","Da","De","Me","Te","Se","No","Na","Ele","Ela","Ate"]);
+
+const REGEX_ACORDE = /\b([A-G][#b]?(?:m|maj|min|dim|aug|sus|add|M)?\d*(?:\/[A-G][#b]?)?)\b/g;
+
 function extrairAcordesLimpos(textoBruto) {
-  let texto = textoBruto.replace(/\([^)]*\)/g, '').replace(/[|\/\-_,;]/g, ' ');
-  const regexAcorde = /\b([A-G][#b]?(?:m|maj|min|dim|aug|sus|add|M)?\d*(?:\/[A-G][#b]?)?)\b/g;
-  let matches = texto.match(regexAcorde) || [];
-  const falsosPositivos = ["A", "E", "O", "As", "Os", "Um", "Uma", "Eu", "Em", "Do", "Da", "De", "Me", "Te", "Se", "No", "Na", "Ele", "Ela", "Ate"];
-  
-  let acordesLimpos = matches.map(ac => {
+  let texto = textoBruto.replace(/\([^)]*\)/g, '').replace(/[|,;]/g, ' ');
+  const matches = texto.match(REGEX_ACORDE) || [];
+  const set = new Set();
+  for (const ac of matches) {
+    if (FALSOS_POSITIVOS.has(ac)) continue;
+    if (ac.length > 8) continue;
     let acNorm = ac.replace('7M', 'maj7').replace('7m', 'm7');
     if (!ACORDES[acNorm]) acNorm = acNorm.replace('add9','').replace('9','').replace('11','').replace('13','');
-    return acNorm;
-  }).filter(ac => !falsosPositivos.includes(ac) && ac.length <= 8 && /^[A-G]/.test(ac));
-
-  return [...new Set(acordesLimpos)];
+    set.add(acNorm);
+  }
+  return [...set];
 }
 
 function detectarTom(acordes) {
   if (acordes.length === 0) return "C";
   const contagem = {};
-  acordes.slice(0, 15).forEach((ac, idx) => {
+  const limit = Math.min(acordes.length, 15);
+  for (let idx = 0; idx < limit; idx++) {
+    const ac = acordes[idx];
     let base = ac.split('/')[0].replace(/m|maj|7|9|11|13|dim|aug/g, '');
-    contagem[base] = (contagem[base] || 0) + (15 - idx); 
-  });
+    contagem[base] = (contagem[base] || 0) + (limit - idx); 
+  }
   
-  let tomProvavel = Object.keys(contagem).reduce((a, b) => contagem[a] > contagem[b] ? a : b);
+  let tomProvavel = Object.keys(contagem).reduce((a, b) => contagem[a] > contagem[b] ? a : b, "C");
   
   if (tomProvavel.includes('m') && !tomProvavel.includes('maj')) {
     const relativaMaior = { "Am":"C", "Bm":"D", "Cm":"D#", "Dm":"F", "Em":"G", "Fm":"G#", "Gm":"A#" };
@@ -859,9 +1117,291 @@ function detectarTom(acordes) {
   return tomProvavel.replace(/m|maj|7/g, '');
 }
 
-document.getElementById("btn-analisar").onclick = () => {
+// ==========================================
+// TRANSPOSIÇÃO
+// ==========================================
+const NOTAS_POR_TOM = {
+  'C':  { bemóis:['Db','Eb','Gb','Ab','Bb'] },
+  'C#': { bemóis:[] }, 'D':  { bemóis:[] }, 'D#': { bemóis:['Eb'] },
+  'E':  { bemóis:[] }, 'F':  { bemóis:['Gb','Ab','Bb','Db'] }, 'F#': { bemóis:[] },
+  'G':  { bemóis:[] }, 'G#': { bemóis:['Ab','Eb'] }, 'A':  { bemóis:['Bb','Eb','Ab','Db'] },
+  'A#': { bemóis:['Bb','Eb'] }, 'B':  { bemóis:['Eb','Ab','Db','Gb'] }
+};
+
+const MAPA_INDICE = {'C':0,'C#':1,'Db':1,'D':2,'D#':3,'Eb':3,'E':4,'F':5,'F#':6,'Gb':6,'G':7,'G#':8,'Ab':8,'A':9,'A#':10,'Bb':10,'B':11};
+const SUSTENIDOS = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+const BEMOIS =     ['C','Db','D','Eb','E','F','Gb','G','Ab','A','Bb','B'];
+
+function notaParaIndice(nota) { return MAPA_INDICE[nota] !== undefined ? MAPA_INDICE[nota] : null; }
+
+function indiceParaNota(indice, tomDestino) {
+  const usaBemois = NOTAS_POR_TOM[tomDestino] && NOTAS_POR_TOM[tomDestino].bemóis.length > 0;
+  return (usaBemois ? BEMOIS : SUSTENIDOS)[indice % 12];
+}
+
+const REGEX_TRANSPOR = /([A-G][#b]?)((?:m|maj|min|dim|aug|sus|add|M|º|°)?\d*(?:\([^)]*\))?)(?:\/([A-G][#b]?))?/g;
+
+function transporCifra(texto, tomOrigem, tomDestino) {
+  if (!tomOrigem || !tomDestino || tomOrigem === tomDestino) return texto;
+  const idxOrigem = notaParaIndice(tomOrigem);
+  const idxDestino = notaParaIndice(tomDestino);
+  if (idxOrigem === null || idxDestino === null) return texto;
+  const diferenca = (idxDestino - idxOrigem + 12) % 12;
+  if (diferenca === 0) return texto;
+  
+  return texto.split('\n').map(linha => {
+    return linha.replace(REGEX_TRANSPOR, (match, notaBase, qualidade, baixo) => {
+      const idxBase = notaParaIndice(notaBase);
+      if (idxBase === null) return match;
+      const novaNotaBase = indiceParaNota((idxBase + diferenca) % 12, tomDestino);
+      let resultado = novaNotaBase + qualidade;
+      if (baixo) {
+        const idxBaixo = notaParaIndice(baixo);
+        if (idxBaixo !== null) {
+          resultado += '/' + indiceParaNota((idxBaixo + diferenca) % 12, tomDestino);
+        } else {
+          resultado += '/' + baixo;
+        }
+      }
+      return resultado;
+    });
+  }).join('\n');
+}
+
+function obterTomOriginalDaCifra(texto) {
+  return detectarTom(extrairAcordesLimpos(texto));
+}
+
+document.getElementById("btn-transpor").onclick = () => {
+  const tomDestino = document.getElementById("select-tom-destino").value;
+  if (!tomDestino) return alert("Selecione uma tonalidade de destino no seletor.");
+  
+  const cifraAtual = document.getElementById("input-cifra").value;
+  if (!cifraAtual.trim()) return alert("Cole uma cifra primeiro!");
+  
+  if (!cifraOriginal) cifraOriginal = cifraAtual;
+  const tomOrigem = obterTomOriginalDaCifra(cifraOriginal);
+  const cifraTransposta = transporCifra(cifraOriginal, tomOrigem, tomDestino);
+  
+  document.getElementById("input-cifra").value = cifraTransposta;
+  mostrarToast(`🔄 Transposto: ${tomOrigem} → ${tomDestino}`);
+  
+  analisarCifra();
+};
+
+// ==========================================
+// ANALISADOR DE 2-5-1
+// ==========================================
+const RELATIVA_MENOR = {
+  "C":"Am","C#":"A#m","D":"Bm","D#":"Cm","E":"C#m","F":"Dm",
+  "F#":"D#m","G":"Em","G#":"Fm","A":"F#m","A#":"Gm","B":"G#m"
+};
+
+const REGEX_LINHA_ACORDE = /(?:^|[\s|,;(\[])([A-G][#b]?(?:m|maj|min|dim|aug|sus|add)?\d*(?:\/[A-G][#b]?)?)(?=$|[\s|,;)\]\-])/g;
+
+function extrairAcordesDaLinha(linha) {
+  const resultado = [];
+  REGEX_LINHA_ACORDE.lastIndex = 0;
+  let m;
+  while ((m = REGEX_LINHA_ACORDE.exec(linha)) !== null) {
+    const ac = m[1];
+    if (!FALSOS_POSITIVOS.has(ac) && ac.length <= 8) resultado.push(ac);
+  }
+  return resultado;
+}
+
+function pareceLinhaDeAcordes(linha) {
+  if (linha.length > 60) return false;
+  const palavrasLongas = linha.match(/\b[a-záéíóúâêôãõç]{4,}\b/gi);
+  if (palavrasLongas && palavrasLongas.length >= 3) return false;
+  return true;
+}
+
+function ehDominanteDe(acorde, tom) {
+  const m = TONALIDADES_MAIORES[tom];
+  if (!m) return false;
+  const v7Base = m.V7.split('/')[0];
+  return acorde.split('/')[0] === v7Base;
+}
+
+function analisar251(texto, tom) {
+  const m = TONALIDADES_MAIORES[tom];
+  if (!m) return [];
+  
+  const ii = m.ii_simples;
+  const V7 = m.V7;
+  const I  = m.I_simples;
+  const vi = RELATIVA_MENOR[tom] || "Am";
+  
+  const linhas = texto.split('\n');
+  const sugestoes = [];
+  let linhaAcordesAnterior = null;
+  
+  for (let i = 0; i < linhas.length; i++) {
+    const linha = linhas[i].trim();
+    if (!linha) continue;
+    
+    if (/^\[.*\]$/.test(linha)) {
+      if (linhaAcordesAnterior && i > 0) {
+        const acordesLinha = extrairAcordesDaLinha(linhaAcordesAnterior);
+        if (acordesLinha.length > 0) {
+          const ultimo = acordesLinha[acordesLinha.length - 1];
+          if (!ehDominanteDe(ultimo, tom) && !acordesLinha.some(a => a.split('/')[0] === ii)) {
+            const jaTemPerto = sugestoes.some(s => Math.abs(s.linha - i) < 3);
+            if (!jaTemPerto) {
+              sugestoes.push({
+                tipo: 'antes_secao',
+                linha: i,
+                local: `Antes de ${linha}`,
+                descricao: `Prepara a entrada do ${linha} com ii–V–I. Faz a nova seção "explodir" emocionalmente.`,
+                cadencia: [ii, V7, I],
+              });
+            }
+          }
+        }
+      }
+      continue;
+    }
+    
+    if (!pareceLinhaDeAcordes(linha)) {
+      linhaAcordesAnterior = null;
+      continue;
+    }
+    
+    const acordesLinha = extrairAcordesDaLinha(linha);
+    if (acordesLinha.length === 0) continue;
+    
+    for (let j = 0; j < acordesLinha.length - 1; j++) {
+      const acAtual = acordesLinha[j].split('/')[0];
+      const acProx = acordesLinha[j+1].split('/')[0];
+      
+      if (ehDominanteDe(acAtual, tom) && acProx === I) {
+        if (!sugestoes.some(s => s.linha === i && s.tipo === 'adicionar_ii')) {
+          sugestoes.push({
+            tipo: 'adicionar_ii',
+            linha: i,
+            local: `Linha ${i+1}: ${acAtual} → ${acProx}`,
+            descricao: `Você já tem V7 → I (${acAtual} → ${acProx}). Adicione o ii (${ii}) antes para criar ii–V–I completo.`,
+            cadencia: [ii, V7, I],
+          });
+        }
+      }
+      
+      if (acAtual === I && j === acordesLinha.length - 2 && acordesLinha.length >= 2) {
+        if (!sugestoes.some(s => s.linha === i && s.tipo === 'turnaround')) {
+          sugestoes.push({
+            tipo: 'turnaround',
+            linha: i,
+            local: `Final da frase: ${acAtual}`,
+            descricao: `Adicione um turnaround I–vi–ii–V (${I} → ${vi} → ${ii} → ${V7}) para "girar" a música.`,
+            cadencia: [I, vi, ii, V7],
+          });
+        }
+      }
+    }
+    
+    const ultimo = acordesLinha[acordesLinha.length - 1].split('/')[0];
+    if (ultimo === I && !sugestoes.some(s => s.linha === i && s.tipo === 'antes_i')) {
+      const temII = acordesLinha.some(a => a.split('/')[0] === ii);
+      const temV = acordesLinha.some(a => ehDominanteDe(a, tom));
+      if (!temII && !temV) {
+        sugestoes.push({
+          tipo: 'antes_i',
+          linha: i,
+          local: `Final em ${I} (linha ${i+1})`,
+          descricao: `A frase termina em ${I} sem preparação. Insira ${ii} → ${V7} antes para criar ii–V–I.`,
+          cadencia: [ii, V7, I],
+        });
+      }
+    }
+    
+    linhaAcordesAnterior = linha;
+  }
+  
+  return sugestoes.slice(0, 6);
+}
+
+function renderSugestoes251(texto, tom) {
+  const div = document.getElementById("sugestoes-251");
+  const sugestoes = analisar251(texto, tom);
+  _sugestoes251 = sugestoes;
+  
+  if (sugestoes.length === 0) {
+    div.innerHTML = `<div class="aviso-251">Nenhuma sugestão automática de 2-5-1 encontrada. Mas você pode adicionar manualmente antes de qualquer refrão! 🎸</div>`;
+    return;
+  }
+  
+  const partes = [];
+  sugestoes.forEach((sug, idx) => {
+    let cadenciaHTML = "";
+    const labels = ["ii", "V7", "I", "vi"];
+    sug.cadencia.forEach((ac, i) => {
+      const cor = i === 0 ? "var(--green)" : i === 1 ? "var(--red2)" : "var(--yellow)";
+      cadenciaHTML += `<span style="color:${cor}; font-weight:bold; font-size:1.15rem;">${ac}</span>`;
+      cadenciaHTML += `<span style="color:var(--muted); font-size:0.7rem; margin-left:2px;">(${labels[i]||''})</span>`;
+      if (i < sug.cadencia.length - 1) cadenciaHTML += ` <span style="color:var(--muted);">→</span> `;
+    });
+    
+    partes.push(`
+      <div class="sugestao-251">
+        <div class="sug-header">
+          <div class="sug-num">${idx + 1}</div>
+          <div>
+            <div class="sug-titulo">${sug.local}</div>
+            <div class="sug-local">${sug.descricao}</div>
+          </div>
+        </div>
+        <div class="sug-cadencia">${cadenciaHTML}</div>
+        <div class="sug-acoes">
+          <button class="btn-aplicar" data-idx="${idx}">✓ Aplicar na cifra</button>
+          <button class="btn-ouvir" data-idx="${idx}">🔊 Ver acordes</button>
+        </div>
+      </div>
+    `);
+  });
+  div.innerHTML = partes.join("");
+  
+  div.querySelectorAll(".btn-aplicar").forEach(b => {
+    b.onclick = () => aplicarSugestao251(parseInt(b.dataset.idx));
+  });
+  div.querySelectorAll(".btn-ouvir").forEach(b => {
+    b.onclick = () => ouvirSugestao251(parseInt(b.dataset.idx));
+  });
+}
+
+function aplicarSugestao251(idx) {
+  const sug = _sugestoes251[idx];
+  if (!sug) return;
+  
+  const textoAtual = document.getElementById("input-cifra").value;
+  const linhas = textoAtual.split('\n');
+  const cadenciaStr = sug.cadencia.join('  ');
+  const linhaInsercao = `  ${cadenciaStr}  `;
+  
+  linhas.splice(sug.linha, 0, linhaInsercao);
+  const novoTexto = linhas.join('\n');
+  
+  document.getElementById("input-cifra").value = novoTexto;
+  cifraOriginal = novoTexto;
+  mostrarToast("✅ Cadência ii–V–I aplicada!");
+  
+  analisarCifra();
+}
+
+function ouvirSugestao251(idx) {
+  const sug = _sugestoes251[idx];
+  if (!sug || sug.cadencia.length === 0) return;
+  abrirModal(sug.cadencia[0], `ii–V–I: ${sug.cadencia.join(' → ')}`);
+}
+
+// ==========================================
+// ANÁLISE PRINCIPAL (CORRIGIDA E BLINDADA)
+// ==========================================
+function analisarCifra() {
   const texto = document.getElementById("input-cifra").value;
   if (!texto.trim()) return alert("Cole alguma cifra primeiro!");
+
+  if (!cifraOriginal) cifraOriginal = texto;
 
   const acordesUnicos = extrairAcordesLimpos(texto);
   if (acordesUnicos.length === 0) return alert("Nenhum acorde válido encontrado. Verifique o texto.");
@@ -869,48 +1409,123 @@ document.getElementById("btn-analisar").onclick = () => {
   const tomProvavel = detectarTom(acordesUnicos);
 
   const divCifra = document.getElementById("cifra-formatada");
-  let linhas = texto.split('\n');
-  let htmlCifra = "";
+  const linhas = texto.split('\n');
+  divCifra.innerHTML = "";
+
+  const REGEX_TOKEN = /[A-G][#b]?(?:m|maj|min|dim|aug|sus|add|M)?(?:7M|\d*)(?:\([^)]*\))?(?:\/[A-G][#b]?)?/g;
+
+  function ehTokenDeAcorde(token) {
+    const limpo = token.replace(/^[([{]+|[)\]},;|]+$/g, '');
+    if (!limpo) return false;
+    return /^[A-G][#b]?(?:m|maj|min|dim|aug|sus|add|M)?(?:7M|\d*)(?:\([^)]*\))?(?:\/[A-G][#b]?)?$/.test(limpo);
+  }
+
+  function ehLinhaSomenteDeAcordes(linha) {
+    const tokens = linha.trim().split(/\s+/).filter(t => t && !/^[()[\]{}|,;]+$/.test(t));
+    if (!tokens.length) return false;
+    return tokens.every(ehTokenDeAcorde);
+  }
+
+  function renderizarLinhaDeAcordes(linha) {
+    const span = document.createElement("span");
+    span.style.whiteSpace = "pre";
+
+    REGEX_TOKEN.lastIndex = 0;
+    let ultimoIndice = 0;
+    let match;
+
+    while ((match = REGEX_TOKEN.exec(linha)) !== null) {
+      const acorde = match[0];
+      if (!ehTokenDeAcorde(acorde)) continue;
+
+      if (match.index > ultimoIndice) {
+        span.appendChild(document.createTextNode(linha.slice(ultimoIndice, match.index)));
+      }
+
+      const acSpan = document.createElement("span");
+      acSpan.className = "acorde-flutuante";
+      acSpan.textContent = acorde;
+      acSpan.title = `Clique para ver a forma de ${acorde}`;
+
+      acSpan.addEventListener("click", () => {
+        const acBase = acorde.split('/')[0];
+        abrirModal(acBase, `Cifra: ${acorde}`);
+      });
+
+      span.appendChild(acSpan);
+      ultimoIndice = match.index + acorde.length;
+    }
+
+    if (ultimoIndice < linha.length) {
+      span.appendChild(document.createTextNode(linha.slice(ultimoIndice)));
+    }
+    return span;
+  }
 
   linhas.forEach(linha => {
-    if (linha.trim() === "") { htmlCifra += "<br>"; return; }
-    if (/^\[.*\]$/i.test(linha.trim())) {
-      htmlCifra += `<span class="secao">${linha.trim()}</span>`;
+    if (linha.trim() === "") {
+      const espaco = document.createElement("div");
+      espaco.className = "cifra-espaco";
+      divCifra.appendChild(espaco);
       return;
     }
-    let linhaFormatada = linha.replace(/\[([A-G][#b]?(?:m|maj|min|dim|aug|sus|add|M)?\d*(?:\/[A-G][#b]?)?)\]/g, (match, ac) => {
-      const acBase = ac.split('/')[0];
-      return `<span class="acorde-txt" onclick="abrirModal('${acBase}', 'Cifra')">${ac}</span>`;
-    });
-    
-    if (linhaFormatada.includes(',')) {
-       linhaFormatada = linhaFormatada.replace(/\b([A-G][#b]?(?:m|maj|min|dim|aug|sus|add|M)?\d*)\b/g, (match) => {
-          if (["A", "E", "O", "As", "Os", "Em"].includes(match) && !linhaFormatada.includes('[')) return match;
-          return `<span class="acorde-txt" onclick="abrirModal('${match}', 'Cifra')">${match}</span>`;
-       });
+
+    if (/^\[.*\]$/i.test(linha.trim())) {
+      const secao = document.createElement("div");
+      secao.className = "secao-cifra";
+      secao.textContent = linha.trim();
+      divCifra.appendChild(secao);
+      return;
     }
-    htmlCifra += linhaFormatada + "\n";
+
+    const divLinha = document.createElement("div");
+    divLinha.className = "cifra-linha";
+
+    if (ehLinhaSomenteDeAcordes(linha)) {
+      divLinha.classList.add("linha-acordes");
+      divLinha.appendChild(renderizarLinhaDeAcordes(linha));
+    } else {
+      divLinha.classList.add("linha-letra");
+      const letra = document.createElement("span");
+      letra.className = "cifra-letra";
+      letra.style.whiteSpace = "pre";
+      letra.textContent = linha;
+      divLinha.appendChild(letra);
+    }
+
+    divCifra.appendChild(divLinha);
   });
-  divCifra.innerHTML = htmlCifra;
+
+  renderSugestoes251(texto, tomProvavel);
 
   const divExtraidos = document.getElementById("acordes-extraidos");
-  divExtraidos.innerHTML = `<div class="prog-card" style="border-left-color: var(--cyan); width: 100%;">
-    <h4>Tom Detectado: <span style="color:var(--yellow)">${tomProvavel}</span></h4>
-    <p style="color: var(--muted); font-size: 0.8rem; margin-bottom: 10px;">Sequência extraída da sua cifra:</p>
-    <div class="prog-acordes" id="lista-original"></div>
-  </div>`;
-
-  const listaOriginal = document.getElementById("lista-original");
+  divExtraidos.innerHTML = "";
+  
+  const cardExtraidos = document.createElement("div");
+  cardExtraidos.className = "prog-card";
+  cardExtraidos.style.borderLeftColor = "var(--cyan)";
+  cardExtraidos.style.width = "100%";
+  cardExtraidos.innerHTML = `<h4>Tom Detectado: <span style="color:var(--yellow)">${tomProvavel}</span></h4>
+    <p style="color: var(--muted); font-size: 0.8rem; margin-bottom: 10px;">Sequência extraída da sua cifra:</p>`;
+  
+  const linhaExtraida = document.createElement("div");
+  linhaExtraida.className = "prog-acordes";
+  
   acordesUnicos.forEach(ac => {
-    const acBase = ac.split('/')[0];
     const btn = document.createElement("button");
     btn.className = "ac-btn grau-ii";
-    btn.textContent = acBase;
-    btn.onclick = () => abrirModal(acBase, "Acorde Original");
-    listaOriginal.appendChild(btn);
-    const s = document.createElement("span"); s.className = "seta"; s.textContent = "→";
-    listaOriginal.appendChild(s);
+    btn.textContent = ac;
+    btn.onclick = () => abrirModal(ac.split('/')[0], "Acorde Original");
+    linhaExtraida.appendChild(btn);
+    
+    const seta = document.createElement("span");
+    seta.className = "seta";
+    seta.textContent = "→";
+    linhaExtraida.appendChild(seta);
   });
+  
+  cardExtraidos.appendChild(linhaExtraida);
+  divExtraidos.appendChild(cardExtraidos);
 
   const divMelhorados = document.getElementById("acordes-melhorados");
   divMelhorados.innerHTML = "";
@@ -961,16 +1576,16 @@ document.getElementById("btn-analisar").onclick = () => {
     
     if (!ACORDES[acParaDesenhar]) {
        acParaDesenhar = simplificarAcorde(acBase);
-       aviso = ` (forma simplificada de ${acBase})`;
+       if (acParaDesenhar !== acBase) aviso = ` (forma de ${acBase})`;
     }
 
     if (ACORDES[acParaDesenhar]) {
       const card = document.createElement("div");
       card.className = "diag-card";
       card.innerHTML = `
-        <div class="nome">${acParaDesenhar}</div>
-        ${desenharSVG(acParaDesenhar)}
-        <div class="funcao" style="${aviso ? 'color:var(--red2)' : ''}">${aviso || 'Original: ' + ac}</div>
+        <div class="nome">${ac}</div>
+        ${desenharSVGComCache(acParaDesenhar)}
+        <div class="funcao" style="${aviso ? 'color:var(--red2)' : ''}">${aviso || 'Original'}</div>
       `;
       card.onclick = () => abrirModal(acParaDesenhar, aviso || 'Acorde Original');
       divDiag.appendChild(card);
@@ -978,6 +1593,11 @@ document.getElementById("btn-analisar").onclick = () => {
   });
 
   document.getElementById("resultado-analise").classList.remove("hidden");
+}
+
+document.getElementById("btn-analisar").onclick = () => {
+  clearTimeout(_analiseTimer);
+  _analiseTimer = setTimeout(analisarCifra, 30);
 };
 
 // ==========================================
@@ -987,6 +1607,7 @@ function init() {
   document.querySelectorAll(".tab").forEach(t => {
     t.onclick = () => trocarAba(t.dataset.tab);
   });
+  atualizarStatusEdicao();
   trocarAba("vilao");
 }
 
